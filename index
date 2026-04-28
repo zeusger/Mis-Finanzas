@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mis Finanzas — Controlá tu dinero, viví mejor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #07070f;
+    --bg2: #0f0f1e;
+    --bg3: #16162a;
+    --bdr: #1e1e35;
+    --pu: #7c3aed;
+    --pu2: #a78bfa;
+    --gr: #10b981;
+    --ye: #f59e0b;
+    --tx: #f1f0ff;
+    --mu: #7a7a9a;
+    --mo: 'Syne', sans-serif;
+    --sa: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--tx);
+    font-family: var(--sa);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 40px;
+    background: rgba(7,7,15,0.88);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(124,58,237,0.15);
+    transition: border-color .3s;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #7c3aed, #10b981);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .logo-icon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+  }
+
+  .logo-text {
+    font-family: var(--mo);
+    font-weight: 800;
+    font-size: 15px;
+    background: linear-gradient(135deg, #a78bfa, #10b981);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+  }
+
+  .logo-text span {
+    display: block;
+    font-size: 10px;
+    font-weight: 400;
+    color: var(--mu);
+    -webkit-text-fill-color: var(--mu);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--mu);
+    font-size: 14px;
+    transition: color .2s;
+  }
+
+  .nav-links a:hover { color: var(--tx); }
+
+  .nav-cta {
+    background: linear-gradient(135deg, #7c3aed, #10b981);
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 700;
+    font-family: var(--mo);
+    font-size: 13px;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity .2s, transform .2s;
+  }
+
+  .nav-cta:hover { opacity: .9; transform: translateY(-1px); }
+
+  .hamburger {
+    display: none;
+    background: none;
+    border: 1px solid var(--bdr);
+    border-radius: 8px;
+    color: var(--tx);
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* MOBILE MENU */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(7,7,15,0.98);
+    z-index: 99;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+  }
+
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { color: var(--tx); text-decoration: none; font-family: var(--mo); font-size: 22px; font-weight: 700; }
+  .mobile-menu-close {
+    position: absolute; top: 20px; right: 20px;
+    background: none; border: 1px solid var(--bdr); border-radius: 8px;
+    color: var(--tx); width: 36px; height: 36px; font-size: 20px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+    position: relative;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: 20%; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(124,58,237,0.15) 0%, rgba(16,185,129,0.06) 50%, transparent 70%);
+    pointer-events: none; border-radius: 50%;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(124,58,237,0.12);
+    border: 1px solid rgba(124,58,237,0.3);
+    border-radius: 99px;
+    padding: 6px 16px;
+    font-size: 12px;
+    color: var(--pu2);
+    font-family: var(--mo);
+    letter-spacing: 1px;
+    margin-bottom: 28px;
+    animation: fadeDown .6s ease both;
+  }
+
+  .hero-title {
+    font-family: var(--mo);
+    font-size: clamp(40px, 7vw, 80px);
+    font-weight: 800;
+    line-height: 1.05;
+    margin-bottom: 20px;
+    animation: fadeDown .6s .1s ease both;
+    max-width: 800px;
+  }
+
+  .hero-title .grad {
+    background: linear-gradient(135deg, #a78bfa 0%, #10b981 60%, #f59e0b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    font-size: clamp(15px, 2.5vw, 18px);
+    color: var(--mu);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+    animation: fadeDown .6s .2s ease both;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 60px;
+    animation: fadeDown .6s .3s ease both;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #7c3aed, #10b981);
+    border: none; border-radius: 12px;
+    color: #fff; font-weight: 700;
+    font-family: var(--mo); font-size: 15px;
+    padding: 14px 28px; cursor: pointer;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: all .25s; position: relative; overflow: hidden;
+  }
+
+  .btn-primary::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.15), transparent);
+    opacity: 0; transition: opacity .2s;
+  }
+
+  .btn-primary:hover::after { opacity: 1; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(124,58,237,0.4); }
+
+  .btn-secondary {
+    background: transparent;
+    border: 1px solid var(--bdr); border-radius: 12px;
+    color: var(--tx); font-weight: 600;
+    font-family: var(--mo); font-size: 15px;
+    padding: 14px 28px; cursor: pointer;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: all .25s;
+  }
+
+  .btn-secondary:hover { border-color: var(--pu); background: rgba(124,58,237,0.08); }
+
+  /* PHONE MOCKUP */
+  .hero-mockup {
+    animation: fadeDown .6s .4s ease both;
+    width: 100%; max-width: 320px; margin: 0 auto;
+  }
+
+  .phone-frame {
+    background: var(--bg2);
+    border: 1px solid var(--bdr);
+    border-radius: 36px; padding: 16px;
+    position: relative; overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+  }
+
+  .phone-notch {
+    width: 80px; height: 22px;
+    background: #0a0a18;
+    border-radius: 0 0 16px 16px;
+    margin: 0 auto 14px; position: relative;
+  }
+
+  .phone-notch::after {
+    content: ''; position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 8px; height: 8px;
+    border-radius: 50%; background: #1a1a30;
+  }
+
+  .phone-screen {
+    background: var(--bg); border-radius: 22px;
+    padding: 14px 12px; min-height: 480px;
+  }
+
+  .ps-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .ps-brand { font-family: var(--mo); font-size: 11px; font-weight: 800; background: linear-gradient(135deg, #a78bfa, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .ps-greeting { font-size: 9px; color: var(--mu); }
+  .ps-mes { text-align: center; font-family: var(--mo); font-size: 13px; font-weight: 700; margin-bottom: 12px; color: var(--pu2); }
+
+  .ps-ingresos { background: var(--bg2); border: 1px solid var(--bdr); border-radius: 10px; padding: 10px; margin-bottom: 10px; }
+  .ps-ing-lbl { font-size: 8px; color: var(--gr); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; font-family: var(--mo); margin-bottom: 6px; }
+  .ps-ing-total { font-family: var(--mo); font-size: 18px; font-weight: 800; color: var(--gr); margin-bottom: 8px; }
+  .ps-ing-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
+  .ps-ing-item { background: var(--bg3); border-radius: 7px; padding: 6px 4px; text-align: center; }
+  .ps-ing-item .ico { font-size: 12px; }
+  .ps-ing-item .lbl { font-size: 7px; color: var(--mu); text-transform: uppercase; letter-spacing: .5px; margin: 2px 0; }
+  .ps-ing-item .val { font-family: var(--mo); font-size: 8px; font-weight: 700; color: var(--gr); }
+
+  .ps-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+  .ps-card { background: var(--bg2); border: 1px solid var(--bdr); border-radius: 10px; padding: 9px; }
+  .ps-card-lbl { font-size: 7px; color: var(--mu); text-transform: uppercase; letter-spacing: .8px; margin-bottom: 4px; font-family: var(--mo); }
+  .ps-card-val { font-family: var(--mo); font-size: 12px; font-weight: 700; }
+
+  .ps-bar { background: var(--bg2); border: 1px solid var(--bdr); border-radius: 8px; padding: 8px 10px; margin-bottom: 10px; }
+  .ps-bar-top { display: flex; justify-content: space-between; font-size: 8px; margin-bottom: 5px; color: var(--mu); }
+  .ps-bar-pct { font-family: var(--mo); font-weight: 700; color: var(--gr); }
+  .ps-bar-track { background: var(--bg3); border-radius: 99px; height: 4px; }
+  .ps-bar-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, #7c3aed, #10b981); width: 42%; }
+
+  .ps-gastos { background: var(--bg2); border: 1px solid var(--bdr); border-radius: 10px; overflow: hidden; }
+  .ps-g-hdr { padding: 7px 10px; border-bottom: 1px solid var(--bdr); }
+  .ps-g-lbl { font-size: 7px; color: var(--pu2); text-transform: uppercase; letter-spacing: 1px; font-weight: 700; font-family: var(--mo); }
+  .ps-g-item { display: flex; align-items: center; gap: 7px; padding: 7px 10px; border-bottom: 1px solid #12121f; }
+  .ps-g-dot { width: 5px; height: 5px; border-radius: 1px; flex-shrink: 0; }
+  .ps-g-name { flex: 1; font-size: 9px; }
+  .ps-g-amt { font-family: var(--mo); font-size: 9px; font-weight: 700; color: var(--ye); }
+
+  .phone-glow { position: absolute; bottom: -40px; left: 50%; transform: translateX(-50%); width: 200px; height: 80px; background: radial-gradient(ellipse, rgba(124,58,237,0.4), transparent 70%); pointer-events: none; }
+
+  /* SECTION COMMONS */
+  .section { padding: 100px 24px; max-width: 1100px; margin: 0 auto; position: relative; }
+
+  .section-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.25);
+    border-radius: 99px; padding: 5px 14px;
+    font-size: 11px; color: var(--gr); font-family: var(--mo); letter-spacing: 1px; margin-bottom: 16px;
+  }
+
+  .section-title { font-family: var(--mo); font-size: clamp(28px, 5vw, 46px); font-weight: 800; line-height: 1.1; margin-bottom: 14px; }
+  .section-sub { font-size: 16px; color: var(--mu); line-height: 1.7; max-width: 520px; margin-bottom: 60px; }
+
+  /* FEATURES */
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+
+  .feature-card {
+    background: var(--bg2); border: 1px solid var(--bdr);
+    border-radius: 20px; padding: 28px;
+    transition: all .3s; position: relative; overflow: hidden;
+  }
+
+  .feature-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--pu), var(--gr));
+    opacity: 0; transition: opacity .3s;
+  }
+
+  .feature-card:hover { border-color: rgba(124,58,237,0.3); transform: translateY(-3px); }
+  .feature-card:hover::before { opacity: 1; }
+
+  .feature-icon { font-size: 28px; margin-bottom: 14px; display: block; }
+  .feature-title { font-family: var(--mo); font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .feature-desc { font-size: 13px; color: var(--mu); line-height: 1.7; }
+
+  /* PLAN */
+  .plan-section { padding: 100px 24px; position: relative; }
+  .plan-section-inner { max-width: 520px; margin: 0 auto; }
+
+  .plan-card-main {
+    background: var(--bg2); border: 1px solid var(--bdr);
+    border-radius: 28px; padding: 40px;
+    position: relative; overflow: hidden; transition: all .3s;
+  }
+
+  .plan-card-main::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(124,58,237,0.06), rgba(16,185,129,0.04));
+  }
+
+  .plan-card-main:hover { border-color: rgba(124,58,237,0.4); box-shadow: 0 20px 60px rgba(124,58,237,0.15); }
+
+  .plan-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; position: relative; }
+  .plan-name { font-family: var(--mo); font-size: 22px; font-weight: 800; }
+  .plan-tagline { font-size: 13px; color: var(--mu); margin-top: 4px; }
+  .plan-price-wrap { text-align: right; }
+  .plan-price-label { font-size: 11px; color: var(--mu); margin-bottom: 4px; font-family: var(--mo); letter-spacing: 1px; }
+
+  .plan-price {
+    font-family: var(--mo); font-size: 36px; font-weight: 800;
+    background: linear-gradient(135deg, #a78bfa, #10b981);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+
+  .plan-price-period { font-size: 12px; color: var(--mu); -webkit-text-fill-color: var(--mu); }
+  .plan-price-editable { font-size: 10px; color: rgba(124,58,237,0.6); font-style: italic; margin-top: 3px; }
+
+  .plan-divider { height: 1px; background: var(--bdr); margin: 24px 0; position: relative; }
+
+  .plan-features-list { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; position: relative; }
+
+  .plan-features-list li { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--tx); line-height: 1.5; }
+
+  .pf-check {
+    color: var(--gr); font-size: 11px; margin-top: 2px; flex-shrink: 0;
+    background: rgba(16,185,129,0.12); border-radius: 50%;
+    width: 18px; height: 18px; display: flex; align-items: center; justify-content: center;
+  }
+
+  .plan-cta {
+    width: 100%; background: linear-gradient(135deg, #7c3aed, #10b981);
+    border: none; border-radius: 14px; color: #fff; font-weight: 700;
+    font-family: var(--mo); font-size: 16px; padding: 16px; cursor: pointer;
+    text-decoration: none; display: block; text-align: center;
+    transition: all .25s; position: relative; overflow: hidden;
+  }
+
+  .plan-cta::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent); opacity: 0; transition: opacity .2s; }
+  .plan-cta:hover::after { opacity: 1; }
+  .plan-cta:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(124,58,237,0.4); }
+
+  .plan-note { text-align: center; font-size: 12px; color: var(--mu); margin-top: 14px; }
+
+  .plan-trial {
+    background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2);
+    border-radius: 12px; padding: 14px 18px; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px; font-size: 13px; position: relative;
+  }
+
+  .trial-badge { background: var(--gr); border-radius: 99px; padding: 3px 10px; font-size: 10px; font-weight: 700; font-family: var(--mo); color: #fff; flex-shrink: 0; }
+
+  /* TESTIMONIALS */
+  .testi-section { padding: 100px 24px; overflow: hidden; }
+  .testi-section-inner { max-width: 1100px; margin: 0 auto; }
+
+  .slider-container { position: relative; overflow: hidden; margin-top: 50px; border-radius: 20px; }
+
+  .slider-track { display: flex; gap: 20px; transition: transform .5s cubic-bezier(.4,0,.2,1); }
+
+  .testi-card {
+    background: var(--bg2); border: 1px solid var(--bdr);
+    border-radius: 20px; padding: 28px; min-width: 320px;
+    flex-shrink: 0; position: relative;
+  }
+
+  .testi-card::before {
+    content: '"'; position: absolute; top: 12px; right: 18px;
+    font-family: var(--mo); font-size: 64px; color: rgba(124,58,237,0.1); line-height: 1; pointer-events: none;
+  }
+
+  .testi-stars { color: var(--ye); font-size: 12px; letter-spacing: 2px; margin-bottom: 12px; }
+  .testi-text { font-size: 14px; color: #c4b5fd; line-height: 1.7; margin-bottom: 18px; }
+
+  .testi-user { display: flex; align-items: center; gap: 10px; }
+  .testi-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--mo); font-weight: 800; font-size: 14px; color: #fff; flex-shrink: 0; }
+  .testi-name { font-family: var(--mo); font-size: 13px; font-weight: 700; }
+  .testi-loc { font-size: 11px; color: var(--mu); margin-top: 1px; }
+
+  .slider-controls { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 28px; }
+
+  .slider-btn {
+    background: var(--bg2); border: 1px solid var(--bdr);
+    border-radius: 50%; color: var(--tx); width: 40px; height: 40px;
+    cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: all .2s;
+  }
+
+  .slider-btn:hover { border-color: var(--pu); background: rgba(124,58,237,0.1); }
+
+  .slider-dots { display: flex; gap: 6px; align-items: center; }
+
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--bdr); cursor: pointer; transition: all .2s; }
+  .dot.active { width: 20px; border-radius: 3px; background: linear-gradient(90deg, #7c3aed, #10b981); }
+
+  /* SOCIAL */
+  .social-section { padding: 80px 24px; }
+  .social-inner { max-width: 600px; margin: 0 auto; text-align: center; }
+
+  .social-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 40px; }
+
+  .social-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    background: var(--bg2); border: 1px solid var(--bdr); border-radius: 16px;
+    padding: 20px 10px; text-decoration: none; color: var(--tx);
+    transition: all .25s; cursor: pointer;
+  }
+
+  .social-btn:hover { transform: translateY(-3px); }
+  .social-btn.ig:hover { border-color: #e1306c; box-shadow: 0 8px 30px rgba(225,48,108,0.2); }
+  .social-btn.tt:hover { border-color: #ff0050; box-shadow: 0 8px 30px rgba(255,0,80,0.2); }
+  .social-btn.wa:hover { border-color: #25d366; box-shadow: 0 8px 30px rgba(37,211,102,0.2); }
+  .social-btn.em:hover { border-color: var(--pu2); box-shadow: 0 8px 30px rgba(124,58,237,0.2); }
+  .social-btn svg { width: 28px; height: 28px; }
+  .social-btn span { font-size: 11px; color: var(--mu); font-family: var(--mo); font-weight: 600; }
+
+  /* FAQ */
+  .faq-section { padding: 100px 24px; }
+  .faq-inner { max-width: 680px; margin: 0 auto; }
+  .faq-list { margin-top: 50px; display: flex; flex-direction: column; gap: 10px; }
+
+  .faq-item { background: var(--bg2); border: 1px solid var(--bdr); border-radius: 14px; overflow: hidden; transition: border-color .2s; }
+  .faq-item.open { border-color: rgba(124,58,237,0.3); }
+
+  .faq-q { padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; gap: 16px; font-size: 15px; font-weight: 500; user-select: none; }
+  .faq-q:hover { color: var(--pu2); }
+
+  .faq-arrow { width: 24px; height: 24px; border-radius: 50%; background: var(--bg3); display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; transition: transform .3s, background .2s; color: var(--mu); }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); background: var(--pu); color: #fff; }
+
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height .35s ease; font-size: 14px; color: var(--mu); line-height: 1.7; }
+  .faq-a-inner { padding: 0 22px 18px; }
+  .faq-item.open .faq-a { max-height: 200px; }
+
+  /* CTA FINAL */
+  .cta-section { padding: 120px 24px; text-align: center; position: relative; }
+  .cta-glow { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 500px; height: 300px; background: radial-gradient(ellipse, rgba(124,58,237,0.15), transparent 70%); pointer-events: none; }
+  .cta-title { font-family: var(--mo); font-size: clamp(32px, 5vw, 54px); font-weight: 800; line-height: 1.1; margin-bottom: 18px; position: relative; }
+  .cta-sub { font-size: 16px; color: var(--mu); margin-bottom: 40px; max-width: 440px; margin-left: auto; margin-right: auto; line-height: 1.6; position: relative; }
+
+  /* FOOTER */
+  footer { background: var(--bg2); border-top: 1px solid var(--bdr); padding: 40px 24px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; text-align: center; }
+  .footer-links { display: flex; gap: 28px; flex-wrap: wrap; justify-content: center; }
+  .footer-links a { text-decoration: none; color: var(--mu); font-size: 13px; transition: color .2s; }
+  .footer-links a:hover { color: var(--pu2); }
+  .footer-copy { font-size: 12px; color: #3a3a5a; }
+
+  /* SEPARATOR */
+  .sep { max-width: 1100px; margin: 0 auto; height: 1px; background: linear-gradient(90deg, transparent, var(--bdr), transparent); }
+
+  /* ANIMATIONS */
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero { padding: 100px 20px 60px; }
+    .section { padding: 70px 20px; }
+    .plan-section { padding: 70px 20px; }
+    .testi-section { padding: 70px 20px; }
+    .social-section { padding: 60px 20px; }
+    .faq-section { padding: 70px 20px; }
+    .cta-section { padding: 80px 20px; }
+    .social-grid { grid-template-columns: repeat(2, 1fr); }
+    .plan-card-main { padding: 28px 22px; }
+    .plan-price { font-size: 28px; }
+    .testi-card { min-width: 280px; }
+    .features-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-btns { flex-direction: column; align-items: stretch; }
+    .btn-primary, .btn-secondary { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">
+    <div class="logo-icon">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="12" width="4" height="8" rx="1.5" fill="white" opacity="0.9"/>
+        <rect x="9" y="7" width="4" height="13" rx="1.5" fill="white" opacity="0.7"/>
+        <rect x="16" y="3" width="4" height="17" rx="1.5" fill="white" opacity="0.5"/>
+        <path d="M3 11.5 L10 7 L17 3.5" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.65"/>
+        <circle cx="17" cy="3.5" r="1.5" fill="white"/>
+      </svg>
+    </div>
+    <div class="logo-text">Mis Finanzas<span>Personales</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Funciones</a></li>
+    <li><a href="#plan">Precio</a></li>
+    <li><a href="#testimonials">Opiniones</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="TU_LINK_DE_APP_AQUI" class="nav-cta" target="_blank">Ingresar →</a>
+  <button class="hamburger" onclick="toggleMenu()">☰</button>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="toggleMenu()">✕</button>
+  <a href="#features" onclick="toggleMenu()">Funciones</a>
+  <a href="#plan" onclick="toggleMenu()">Precio</a>
+  <a href="#testimonials" onclick="toggleMenu()">Opiniones</a>
+  <a href="#faq" onclick="toggleMenu()">FAQ</a>
+  <a href="TU_LINK_DE_APP_AQUI" class="nav-cta" target="_blank" onclick="toggleMenu()">Ingresar a la app →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-badge">✦ Finanzas Personales · Sin complicaciones</div>
+  <h1 class="hero-title">Tu dinero,<br>siempre bajo<br><span class="grad">control</span></h1>
+  <p class="hero-sub">Registrá ingresos, gastos y recordatorios desde el celular. Visualizá tu situación financiera en segundos y tomá mejores decisiones.</p>
+  <div class="hero-btns">
+    <a href="TU_LINK_DE_APP_AQUI" class="btn-primary" target="_blank">✦ Probar gratis 14 días</a>
+    <a href="#plan" class="btn-secondary">Ver planes →</a>
+  </div>
+
+  <!-- Mockup -->
+  <div class="hero-mockup">
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-screen">
+        <div class="ps-header">
+          <div><div class="ps-brand">Mis Finanzas</div><div class="ps-greeting">Hola, María 👋</div></div>
+          <span style="font-size:18px">🔔</span>
+        </div>
+        <div class="ps-mes">Abril 2025</div>
+        <div class="ps-ingresos">
+          <div class="ps-ing-lbl">Ingresos del mes</div>
+          <div class="ps-ing-total">$245.000</div>
+          <div class="ps-ing-row">
+            <div class="ps-ing-item"><div class="ico">💵</div><div class="lbl">Efectivo</div><div class="val">$80.000</div></div>
+            <div class="ps-ing-item"><div class="ico">💳</div><div class="lbl">Tarjeta</div><div class="val">$120.000</div></div>
+            <div class="ps-ing-item"><div class="ico">📲</div><div class="lbl">QR / Trans.</div><div class="val">$45.000</div></div>
+          </div>
+        </div>
+        <div class="ps-cards">
+          <div class="ps-card"><div class="ps-card-lbl">Total Gastado</div><div class="ps-card-val" style="color:#f59e0b">$103.200</div></div>
+          <div class="ps-card"><div class="ps-card-lbl">Resultado</div><div class="ps-card-val" style="color:#10b981">+$141.800</div></div>
+        </div>
+        <div class="ps-bar">
+          <div class="ps-bar-top"><span>Gastos vs Ingresos</span><span class="ps-bar-pct">42%</span></div>
+          <div class="ps-bar-track"><div class="ps-bar-fill"></div></div>
+        </div>
+        <div class="ps-gastos">
+          <div class="ps-g-hdr"><div class="ps-g-lbl">Últimos gastos</div></div>
+          <div class="ps-g-item"><div class="ps-g-dot" style="background:#06d6a0"></div><div class="ps-g-name">Supermercado</div><div class="ps-g-amt">-$18.400</div></div>
+          <div class="ps-g-item"><div class="ps-g-dot" style="background:#f77f00"></div><div class="ps-g-name">Internet + Luz</div><div class="ps-g-amt">-$9.800</div></div>
+          <div class="ps-g-item"><div class="ps-g-dot" style="background:#ffd166"></div><div class="ps-g-name">SUBE / Uber</div><div class="ps-g-amt">-$4.200</div></div>
+        </div>
+      </div>
+      <div class="phone-glow"></div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div class="reveal">
+    <div class="section-badge">✦ Funcionalidades</div>
+    <h2 class="section-title">Todo lo que necesitás,<br>nada que sobre</h2>
+    <p class="section-sub">Diseñada para el día a día. Sin Excel, sin complejidad — solo registrá y entendé tu plata.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card reveal"><span class="feature-icon">💵</span><div class="feature-title">Ingresos por medio de pago</div><div class="feature-desc">Separás lo que entra en efectivo, tarjeta y QR/transferencia. Sabés de dónde viene tu plata de un vistazo.</div></div>
+    <div class="feature-card reveal"><span class="feature-icon">💸</span><div class="feature-title">Carga rápida de gastos</div><div class="feature-desc">Descripción, monto, categoría y medio de pago en segundos. 14 categorías listas: vivienda, servicios, gastronomía, salud y más.</div></div>
+    <div class="feature-card reveal"><span class="feature-icon">📊</span><div class="feature-title">Estadísticas visuales</div><div class="feature-desc">Gráficos de torta, barras por categoría y resumen mensual. Entendés en qué gastás más sin tener que calcular nada.</div></div>
+    <div class="feature-card reveal"><span class="feature-icon">📅</span><div class="feature-title">Recordatorios de vencimientos</div><div class="feature-desc">Nunca más se te pasa un impuesto o servicio. Cargás la fecha y la app te avisa con días de anticipación.</div></div>
+    <div class="feature-card reveal"><span class="feature-icon">💡</span><div class="feature-title">Consejos con Inteligencia Artificial</div><div class="feature-desc">Basados en tus movimientos reales de los últimos 3 meses. Consejos concretos y prácticos para mejorar tus finanzas.</div></div>
+    <div class="feature-card reveal"><span class="feature-icon">🔗</span><div class="feature-title">Sync con Google Sheets</div><div class="feature-desc">Exportá el mes completo a tu planilla de Google con formato automático, colores por categoría y saldo acumulado.</div></div>
+    <div class="feature-card reveal"><span class="feature-icon">📱</span><div class="feature-title">Funciona en cualquier dispositivo</div><div class="feature-desc">App web progresiva: agregala a tu pantalla de inicio y usala como una app nativa. Sin instalaciones.</div></div>
+    <div class="feature-card reveal"><span class="feature-icon">🔒</span><div class="feature-title">Tus datos son tuyos</div><div class="feature-desc">Accedés con tu Gmail y un PIN. Los datos se guardan en tu propio Google Sheets — solo vos tenés acceso completo.</div></div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- PLAN -->
+<section class="plan-section" id="plan">
+  <div class="plan-section-inner">
+    <div class="reveal" style="text-align:center;margin-bottom:50px">
+      <div class="section-badge" style="justify-content:center">✦ Precio</div>
+      <h2 class="section-title">Simple y transparente</h2>
+      <p style="font-size:16px;color:var(--mu);margin-top:12px">Un solo plan. Todo incluido. Sin sorpresas.</p>
+    </div>
+    <div class="plan-card-main reveal">
+      <div class="plan-trial">
+        <div class="trial-badge">🎁 TRIAL</div>
+        <div><strong style="color:var(--gr)">14 días gratis</strong> para probar todo sin pagar nada.</div>
+      </div>
+      <div class="plan-top">
+        <div>
+          <div class="plan-name">Plan Personal</div>
+          <div class="plan-tagline">Para controlar tus finanzas personales</div>
+        </div>
+        <div class="plan-price-wrap">
+          <div class="plan-price-label">ABONO MENSUAL</div>
+          <div class="plan-price">$XXXX<span class="plan-price-period">/mes</span></div>
+          <div class="plan-price-editable">← completar monto</div>
+        </div>
+      </div>
+      <div class="plan-divider"></div>
+      <ul class="plan-features-list">
+        <li><div class="pf-check">✓</div><div>Ingresos diferenciados por <strong>efectivo, tarjeta y QR</strong></div></li>
+        <li><div class="pf-check">✓</div><div>Carga y visualización de gastos con <strong>14 categorías</strong></div></li>
+        <li><div class="pf-check">✓</div><div>Búsqueda y filtrado de movimientos</div></li>
+        <li><div class="pf-check">✓</div><div><strong>Estadísticas y gráficos</strong> mensuales completos</div></li>
+        <li><div class="pf-check">✓</div><div><strong>Consejos personalizados</strong> con Inteligencia Artificial</div></li>
+        <li><div class="pf-check">✓</div><div><strong>Recordatorios</strong> de vencimientos y pagos</div></li>
+        <li><div class="pf-check">✓</div><div>Sincronización con <strong>Google Sheets</strong> personal</div></li>
+        <li><div class="pf-check">✓</div><div>Historial de todos los meses sin límite</div></li>
+        <li><div class="pf-check">✓</div><div>Acceso desde cualquier dispositivo, sin instalación</div></li>
+      </ul>
+      <!-- EDITAR LINK DE PAGO AQUI -->
+      <a href="TU_LINK_DE_PAGO_AQUI" class="plan-cta" target="_blank">Empezar ahora — 14 días gratis →</a>
+      <div class="plan-note">🔵 Pago seguro vía Mercado Pago · Tu suscripción se activa al instante</div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section" id="testimonials">
+  <div class="testi-section-inner">
+    <div class="reveal" style="text-align:center">
+      <div class="section-badge" style="justify-content:center">✦ Opiniones</div>
+      <h2 class="section-title">Lo que dicen quienes<br>ya la usan</h2>
+    </div>
+    <div class="slider-container reveal">
+      <div class="slider-track" id="sliderTrack">
+
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">Empecé a usarla en enero y no puedo creer que antes manejaba todo en una libreta. Ahora sé exactamente cuánto me sobra a fin de mes.</p>
+          <div class="testi-user"><div class="testi-avatar" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">V</div><div><div class="testi-name">Valentina M.</div><div class="testi-loc">Mendoza, Argentina</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">Los recordatorios de vencimientos son oro. Se me habían pasado dos veces el monotributo y con esta app no me perdí más ningún pago.</p>
+          <div class="testi-user"><div class="testi-avatar" style="background:linear-gradient(135deg,#10b981,#3b82f6)">R</div><div><div class="testi-name">Rodrigo A.</div><div class="testi-loc">Córdoba, Argentina</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">La función de IA me dio consejos que nunca hubiera pensado solo. Me di cuenta que en comida gastaba un 35% de mis ingresos sin notarlo.</p>
+          <div class="testi-user"><div class="testi-avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">L</div><div><div class="testi-name">Lucía P.</div><div class="testi-loc">Buenos Aires, Argentina</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">Súper intuitiva. La empecé a usar sin leer ningún tutorial. En 5 minutos ya tenía cargados todos mis ingresos del mes.</p>
+          <div class="testi-user"><div class="testi-avatar" style="background:linear-gradient(135deg,#3b82f6,#7c3aed)">M</div><div><div class="testi-name">Mateo S.</div><div class="testi-loc">Rosario, Argentina</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">Lo mejor es que mis datos están en mi Google Sheets, no en la nube de alguien que no conozco. Me da mucha confianza eso.</p>
+          <div class="testi-user"><div class="testi-avatar" style="background:linear-gradient(135deg,#10b981,#f59e0b)">C</div><div><div class="testi-name">Camila R.</div><div class="testi-loc">San Juan, Argentina</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">Llevo 3 meses usándola y pude ahorrar el doble de lo que ahorraba antes. Ver el gráfico de gastos me cambió la cabeza completamente.</p>
+          <div class="testi-user"><div class="testi-avatar" style="background:linear-gradient(135deg,#ff6b9d,#7c3aed)">F</div><div><div class="testi-name">Florencia K.</div><div class="testi-loc">La Plata, Argentina</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">Nunca pensé que iba a controlar mis finanzas. Esta app lo hizo posible. Simple, rápida y me muestra todo de un vistazo.</p>
+          <div class="testi-user"><div class="testi-avatar" style="background:linear-gradient(135deg,#4cc9f0,#10b981)">D</div><div><div class="testi-name">Diego N.</div><div class="testi-loc">Salta, Argentina</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">La sincronización con Google Sheets me permite compartirle el resumen a mi contador. Ahorré tiempo y evité errores en los datos.</p>
+          <div class="testi-user"><div class="testi-avatar" style="background:linear-gradient(135deg,#f77f00,#f59e0b)">A</div><div><div class="testi-name">Andrea G.</div><div class="testi-loc">Tucumán, Argentina</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">El precio es muy accesible para todo lo que ofrece. Vale la pena mil veces. Ya se la recomendé a 5 amigos y todos la están usando.</p>
+          <div class="testi-user"><div class="testi-avatar" style="background:linear-gradient(135deg,#e63946,#ff6b9d)">J</div><div><div class="testi-name">Julián T.</div><div class="testi-loc">Mar del Plata, Argentina</div></div></div>
+        </div>
+
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">Probé el trial y a los 3 días ya la pagué. No me imaginé que me iba a enganchar tanto con controlar mis gastos. Es parte de mi rutina.</p>
+          <div class="testi-user"><div class="testi-avatar" style="background:linear-gradient(135deg,#80ffdb,#10b981)">S</div><div><div class="testi-name">Sofía E.</div><div class="testi-loc">Neuquén, Argentina</div></div></div>
+        </div>
+
+      </div>
+    </div>
+    <div class="slider-controls">
+      <button class="slider-btn" onclick="prevSlide()">‹</button>
+      <div class="slider-dots" id="sliderDots"></div>
+      <button class="slider-btn" onclick="nextSlide()">›</button>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- SOCIAL -->
+<section class="social-section">
+  <div class="social-inner reveal">
+    <div class="section-badge" style="justify-content:center">✦ Seguinos</div>
+    <h2 class="section-title" style="text-align:center;margin-bottom:10px">Conectate con nosotros</h2>
+    <p style="font-size:15px;color:var(--mu);text-align:center;line-height:1.6">Tips financieros, novedades y soporte por todos nuestros canales.</p>
+    <div class="social-grid">
+
+      <!-- COMPLETAR LINK INSTAGRAM -->
+      <a href="TU_INSTAGRAM_AQUI" class="social-btn ig" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+          <defs><linearGradient id="ig-g" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#f09433"/><stop offset="50%" stop-color="#dc2743"/><stop offset="100%" stop-color="#bc1888"/></linearGradient></defs>
+          <rect x="2" y="2" width="20" height="20" rx="5" stroke="url(#ig-g)"/>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" stroke="url(#ig-g)"/>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="url(#ig-g)" stroke-linecap="round"/>
+        </svg>
+        <span>Instagram</span>
+      </a>
+
+      <!-- COMPLETAR LINK TIKTOK -->
+      <a href="TU_TIKTOK_AQUI" class="social-btn tt" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ff0050" stroke-width="1.8">
+          <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+        </svg>
+        <span>TikTok</span>
+      </a>
+
+      <!-- COMPLETAR NUMERO WHATSAPP -->
+      <a href="https://wa.me/TU_NUMERO_AQUI" class="social-btn wa" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#25d366" stroke-width="1.8">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+        </svg>
+        <span>WhatsApp</span>
+      </a>
+
+      <!-- COMPLETAR EMAIL -->
+      <a href="mailto:TU_EMAIL_AQUI" class="social-btn em">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8">
+          <defs><linearGradient id="em-g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#a78bfa"/><stop offset="100%" stop-color="#10b981"/></linearGradient></defs>
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="url(#em-g)"/>
+          <polyline points="22,6 12,13 2,6" stroke="url(#em-g)"/>
+        </svg>
+        <span>Email</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="faq-inner">
+    <div class="reveal" style="text-align:center">
+      <div class="section-badge" style="justify-content:center">✦ Preguntas frecuentes</div>
+      <h2 class="section-title">¿Tenés dudas?</h2>
+    </div>
+    <div class="faq-list reveal">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">¿Cómo funcionan los 14 días de prueba?<span class="faq-arrow">▾</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Al darte de alta accedés automáticamente al trial gratuito por 14 días con todas las funciones habilitadas. No necesitás ingresar ninguna tarjeta. Al vencerse, podés suscribirte al plan mensual para continuar. Tus datos no se borran nunca.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">¿Mis datos son seguros?<span class="faq-arrow">▾</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Sí. Tus movimientos se guardan en tu propio Google Sheets personal, al que solo vos tenés acceso completo. Nosotros no almacenamos ni vemos tu información financiera. El acceso con Gmail + PIN te da una capa extra de seguridad.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">¿Qué pasa si no pago el abono mensual?<span class="faq-arrow">▾</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Tu acceso se suspende pero tus datos no se borran nunca. Al renovar la suscripción volvés a ver todo tu historial completo, exactamente como lo dejaste.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">¿Funciona en iPhone y Android?<span class="faq-arrow">▾</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Sí, funciona en cualquier dispositivo con navegador. Podés agregarla a tu pantalla de inicio en iPhone (Safari → Agregar a pantalla de inicio) o en Android (Chrome → Agregar a pantalla de inicio) y usarla como una app nativa sin instalación.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">¿Necesito saber usar Google Sheets?<span class="faq-arrow">▾</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Para nada. La app funciona de forma completamente independiente. Google Sheets es solo una opción adicional para exportar y guardar tus datos con formato visual. Podés usar la app durante meses sin tocarlo.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">¿Cómo puedo contactar soporte?<span class="faq-arrow">▾</span></div>
+        <div class="faq-a"><div class="faq-a-inner">Por WhatsApp, email o Instagram. Respondemos en el día. También dentro de la app hay un acceso directo al soporte desde la sección Mi Perfil.</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <div class="cta-glow"></div>
+  <div class="reveal">
+    <h2 class="cta-title">¿Listo para tener<br>tus finanzas <span style="background:linear-gradient(135deg,#a78bfa,#10b981);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">en orden</span>?</h2>
+    <p class="cta-sub">Empezá gratis hoy. 14 días sin pagar, sin tarjeta, sin compromisos.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative">
+      <a href="TU_LINK_DE_APP_AQUI" class="btn-primary" target="_blank">✦ Empezar mi prueba gratis</a>
+      <a href="#plan" class="btn-secondary">Ver el plan →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="logo-icon">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <rect x="2" y="12" width="4" height="8" rx="1.5" fill="white" opacity="0.9"/>
+          <rect x="9" y="7" width="4" height="13" rx="1.5" fill="white" opacity="0.7"/>
+          <rect x="16" y="3" width="4" height="17" rx="1.5" fill="white" opacity="0.5"/>
+          <path d="M3 11.5 L10 7 L17 3.5" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.65"/>
+          <circle cx="17" cy="3.5" r="1.5" fill="white"/>
+        </svg>
+      </div>
+      <div class="logo-text">Mis Finanzas<span>Personales</span></div>
+    </div>
+    <div class="footer-links">
+      <a href="#features">Funciones</a>
+      <a href="#plan">Precio</a>
+      <a href="#testimonials">Opiniones</a>
+      <a href="#faq">Preguntas frecuentes</a>
+      <a href="mailto:TU_EMAIL_AQUI">Contacto</a>
+    </div>
+    <div class="footer-copy">© 2025 Mis Finanzas · Hecho con ❤️ en Argentina</div>
+  </div>
+</footer>
+
+<script>
+  // MENU MÓVIL
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  // FAQ
+  function toggleFaq(el) {
+    const item = el.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // SLIDER
+  const cards = document.querySelectorAll('.testi-card');
+  const track = document.getElementById('sliderTrack');
+  const dotsEl = document.getElementById('sliderDots');
+  let current = 0;
+  let autoSlide;
+  let visibleCards = 1;
+
+  function getLayout() {
+    const w = window.innerWidth;
+    visibleCards = w >= 900 ? 3 : w >= 600 ? 2 : 1;
+  }
+
+  function getCardWidth() {
+    return cards[0].offsetWidth + 20;
+  }
+
+  function totalSlides() { return Math.max(0, cards.length - visibleCards); }
+
+  function buildDots() {
+    dotsEl.innerHTML = '';
+    const total = totalSlides() + 1;
+    for (let i = 0; i < total; i++) {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.onclick = () => goTo(i);
+      dotsEl.appendChild(d);
+    }
+  }
+
+  function updateDots() {
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  function goTo(idx) {
+    getLayout();
+    current = Math.max(0, Math.min(idx, totalSlides()));
+    track.style.transform = `translateX(-${current * getCardWidth()}px)`;
+    updateDots();
+  }
+
+  function nextSlide() { goTo(current >= totalSlides() ? 0 : current + 1); }
+  function prevSlide() { goTo(current <= 0 ? totalSlides() : current - 1); }
+  function startAuto() { stopAuto(); autoSlide = setInterval(nextSlide, 4200); }
+  function stopAuto() { clearInterval(autoSlide); }
+
+  document.querySelector('.slider-container').addEventListener('mouseenter', stopAuto);
+  document.querySelector('.slider-container').addEventListener('mouseleave', startAuto);
+
+  let startX = 0;
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; stopAuto(); });
+  track.addEventListener('touchend', e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) diff > 0 ? nextSlide() : prevSlide();
+    startAuto();
+  });
+
+  window.addEventListener('resize', () => { getLayout(); buildDots(); goTo(Math.min(current, totalSlides())); });
+
+  window.addEventListener('load', () => {
+    getLayout();
+    buildDots();
+    startAuto();
+  });
+
+  // SCROLL REVEAL
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // NAV SCROLL
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').style.borderBottomColor =
+      window.scrollY > 50 ? 'rgba(124,58,237,0.28)' : 'rgba(124,58,237,0.15)';
+  });
+</script>
+</body>
+</html>
